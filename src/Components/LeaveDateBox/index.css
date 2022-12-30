@@ -1,0 +1,17 @@
+    .Date-picker{
+        display: flex;
+    }
+.Date-picker .react-datepicker__month{
+    display: flex;
+}
+.Date-picker .react-datepicker__day-names{
+    display: none;
+}
+
+
+
+.highlight{
+    background-color:rgb(219, 219, 14) !important;
+    color: white;
+    border-radius: 10px;
+}

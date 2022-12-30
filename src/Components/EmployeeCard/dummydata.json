@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "name": "Nayan Thakor",
+    "reporting_person": 2,
+    "leaves": [
+      {
+        "id": 1,
+        "reason": "Need to attend marriage of sister.",
+        "startdate": "7-1-2023",
+        "enddate": "17-1-2023",
+        "status": 1
+      },
+      {
+        "id": 2,
+        "reason": "Need to attend marriage of sister.",
+        "startdate": "24-1-2023",
+        "enddate": "26-1-2023",
+        "status": 2
+      },
+      {
+        "id": 3,
+        "reason": "Need to attend marriage of sister.",
+        "startdate": "28-1-2023",
+        "enddate": "29-1-2023",
+        "status": 3
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Amisha Patel",
+    "reporting_person": 2,
+    "leaves": [
+      {
+        "id": 1,
+        "reason": "go to family function.",
+        "startdate": "6-2-2023",
+        "enddate": "9-2-2023",
+        "status": 1
+      },
+      {
+        "id": 3,
+        "reason": "go to family function.",
+        "startdate": "16-2-2023",
+        "enddate": "20-2-2023",
+        "status": 1
+      },
+      {
+        "id": 3,
+        "reason": "go to family function.",
+        "startdate": "26-2-2023",
+        "enddate": "28-2-2023",
+        "status": 1
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Sarthak Sarvaiya",
+    "reporting_person": 2,
+    "leaves": [
+      {
+        "id": 1,
+        "reason": "Medical Emargency.",
+        "startdate": "2-3-2023",
+        "enddate": "7-3-2023",
+        "status": 1
+      },
+      {
+        "id": 2,
+        "reason": "Medical Emargency.",
+        "startdate": "12-3-2023",
+        "enddate": "17-3-2023",
+        "status": 1
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Sonal Rathod",
+    "reporting_person": 2,
+    "leaves": [
+      {
+        "id": 1,
+        "reason": "Going to Family Function.",
+        "startdate": "27-12-2022",
+        "enddate": "29-12-2022",
+        "status": 1
+      }
+    ]
+  }
+]

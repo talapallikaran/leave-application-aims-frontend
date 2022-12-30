@@ -1,0 +1,12 @@
+.Footer-wrapper{
+    background-color: var(--dark);
+   
+}
+.Footer-text p{
+    font-size: 15px;
+    color: var(--white);
+    font-weight: 700;
+    text-align: center;
+    margin: 0px;
+    padding: 10px;
+}

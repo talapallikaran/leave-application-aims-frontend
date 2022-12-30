@@ -1,0 +1,30 @@
+.Main-Leave-Div{
+    background-color: var(--grey);
+    margin: auto;
+    width: fit-content;
+    padding: 10px;
+    margin-top:10px ;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.Leave-Com-Wrapper{
+    margin-top:50px;
+    margin-bottom: 50px;
+    
+}
+.user-name{
+    background:var(--secondary);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+}
+.user-name p{
+    margin: 0px;
+    padding-top: 10px;
+    color: var(--white);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 20px;
+}
