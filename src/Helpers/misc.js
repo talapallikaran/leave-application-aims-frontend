@@ -20,8 +20,13 @@ export const enumerateDaysBetweenDates = (startDate, endDate) => {
     dates = [];
 
   while (now.isSameOrBefore(endDate)) {
+    /* dates.push([
+      now.format("MMM"),
+      now.format("DD"),
+      now.format("YYYY"),
+      now.format("DD-MM-YYYY"),
+    ]); */
     dates.push(now.format("DD-MM-YYYY"));
-
     now.add(1, "days");
   }
 

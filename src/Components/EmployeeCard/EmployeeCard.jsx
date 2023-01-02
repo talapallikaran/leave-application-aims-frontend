@@ -8,9 +8,9 @@ export default function EmployeeCard() {
   return (
     <div>
       <div className="Leave-Com-Wrapper">
-        {dummyData.map((userdata) => {
+        {dummyData.map((userdata, id) => {
           return (
-            <div className="Main-Leave-Div">
+            <div key={id} className="Main-Leave-Div">
               <div className="user-name">
                 <p>{getInitials(userdata.name)}</p>
               </div>

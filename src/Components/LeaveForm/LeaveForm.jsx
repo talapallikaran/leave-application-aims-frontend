@@ -3,7 +3,7 @@ import { convert } from "../../Helpers/misc";
 import "./index.css";
 
 export default function LeaveForm(props) {
-  const { startDate, endDate, setModel, value } = props;
+  const { startDate, endDate, setModel } = props;
 
   useEffect(() => {
     function handleEscapeKey(event) {
@@ -31,14 +31,14 @@ export default function LeaveForm(props) {
                 {" "}
                 <p style={{ margin: 0 }}>Start-Date</p>
               </b>
-              {convert(value[0])}
+              {convert(startDate)}
             </div>
             <div>
               <b>
                 {" "}
                 <p style={{ margin: 0 }}>End-Date</p>
               </b>
-              {convert(value[1])}
+              {convert(endDate)}
             </div>
           </div>
           <div className="TeaxArea">

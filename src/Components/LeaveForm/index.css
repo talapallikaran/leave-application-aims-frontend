@@ -20,7 +20,7 @@
   position: absolute;
   z-index: 1;
   transform:translate(50%,-50%) ;
-
+  position: fixed;
 }
 .LeaveModel h5 {
   padding: 10px;
