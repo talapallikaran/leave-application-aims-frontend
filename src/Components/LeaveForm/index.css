@@ -1,11 +1,10 @@
-
 .maindiv {
   background-color: rgba(0, 0, 0, 0.2);
   width: 100%;
   height: 100vw;
   z-index: 1;
   top: 50%;
-  Right: 50%;
+  right: 50%;
   transform: translate(50%, -50%);
   position: absolute;
 }
@@ -19,7 +18,7 @@
   right: 50%;
   position: absolute;
   z-index: 1;
-  transform:translate(50%,-50%) ;
+  transform: translate(50%, -50%);
   position: fixed;
 }
 .LeaveModel h5 {
@@ -27,11 +26,10 @@
   margin: 0px;
   text-align: center;
 }
-.TeaxArea{
+.TeaxArea {
   padding: 15px;
-  
 }
-.TeaxArea textarea{
+.TeaxArea textarea {
   height: 50px;
   width: 100%;
 }
@@ -42,16 +40,13 @@
   transform: translate(-50%, -50%);
 }
 
-
-
 .modalContent {
   padding: 15px;
   font-size: 14px;
   color: #2c3e50;
   display: flex;
-    gap: 50%;
-    /* justify-content: space-between; */
-
+  gap: 50%;
+  /* justify-content: space-between; */
 }
 
 .modalActions {
@@ -60,7 +55,7 @@
   width: 100%;
 }
 
-.actionsContainer {
+.modalActions .actionsContainer {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -90,7 +85,7 @@
   transform: translate(-4px, 4px);
 }
 
-.Submitbtn {
+.modalActions .actionsContainer .Submitbtn {
   margin-top: 10px;
   cursor: pointer;
   font-weight: 500;
@@ -99,7 +94,7 @@
   font-size: 0.8rem;
   border: none;
   color: #fff;
-  background:rgb(6, 173, 6);
+  background: rgb(6, 173, 6);
   transition: all 0.25s ease;
 }
 
@@ -108,7 +103,7 @@
   background: rgb(6, 173, 6);
 }
 
-.cancelBtn {
+.modalActions .actionsContainer .cancelBtn {
   margin-top: 10px;
   cursor: pointer;
   font-weight: 500;
@@ -116,7 +111,7 @@
   border-radius: 12px;
   font-size: 0.8rem;
   border: none;
-  color:white;
+  color: white;
   background: rgb(204, 23, 23);
   transition: all 0.25s ease;
 }

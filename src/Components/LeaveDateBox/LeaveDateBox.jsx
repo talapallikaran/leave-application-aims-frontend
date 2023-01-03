@@ -13,6 +13,7 @@ export default function LeaveDateBox(props) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [Model, setModel] = useState();
+  console.log("Model=========>", Model);
   const [activeLeaves, setActiveLeaves] = useState([]);
   const [approvedLeave, setApprovedLeave] = useState([]);
   const [rejected, setRejected] = useState([]);
@@ -28,7 +29,7 @@ export default function LeaveDateBox(props) {
   useEffect(() => {
     reportingperson.map((date) => {
       console.log("Dates======>", moment(date, "DD-MM-YYYY")["_d"]);
-      if (moment(date, "DD-MM-YYYY")["_d"] === startDate || endDate) {
+      if (moment(date, "DD-MM-YYYY")["_d"] === startDate || moment(date, "DD-MM-YYYY")["_d"] === endDate) {
         setModel("reportingperson");
       }
     });
@@ -46,7 +47,7 @@ export default function LeaveDateBox(props) {
       setModel(true);
       window.scroll(0, 0);
     }
-  }, [startDate && endDate]);
+  }, [startDate, endDate]);
 
   Array.prototype.getUnique = function () {
     var o = {},
