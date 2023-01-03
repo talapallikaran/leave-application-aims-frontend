@@ -195,7 +195,3 @@ export default function LeaveDateBox(props) {
     </div>
   );
 }
-
-// hello sir ,
-
-// let  me know once you are free so we can discuss about my  leave
