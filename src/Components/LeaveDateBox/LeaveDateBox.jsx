@@ -6,24 +6,40 @@ import "react-calendar/dist/Calendar.css";
 import moment, { ISO_8601 } from "moment/moment";
 import { enumerateDaysBetweenDates } from "../../Helpers/misc";
 import LeaveForm from "../LeaveForm/LeaveForm";
-import dummyData from "../EmployeeCard/dummydata.json";
 
 export default function LeaveDateBox(props) {
   const Userid = 1;
   const { userdata } = props;
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [Model, setModel] = useState();
   const [activeLeaves, setActiveLeaves] = useState([]);
   const [approvedLeave, setApprovedLeave] = useState([]);
   const [rejected, setRejected] = useState([]);
   const [reportingperson, setReportingperson] = useState([]);
+  const [excludeDays, setExcludeDays] = useState([]);
 
   const onChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
   };
+
+  useEffect(() => {
+    reportingperson.map((date) => {
+      console.log("Dates======>", moment(date, "DD-MM-YYYY")["_d"]);
+      if (moment(date, "DD-MM-YYYY")["_d"] === startDate || endDate) {
+        setModel("reportingperson");
+      }
+    });
+  }, [Model]);
+
+  useEffect(() => {
+    const excludedays = activeLeaves.map((date) => {
+      return moment(date, "DD-MM-YYYY")["_d"];
+    });
+    setExcludeDays(excludedays);
+  }, [activeLeaves]);
 
   useEffect(() => {
     if (startDate && endDate) {
@@ -43,7 +59,6 @@ export default function LeaveDateBox(props) {
   useEffect(() => {
     let dates = [];
     userdata.leaves.map((data, index) => {
-      console.log("userdata=======>", userdata.reporting_person);
       if (data.startdate && data.enddate) {
         const daterange1 = enumerateDaysBetweenDates(
           moment(data.startdate, "DD-MM-YYYY"),
@@ -63,7 +78,6 @@ export default function LeaveDateBox(props) {
     const TL = dates.filter(
       (Fdata) => Fdata.reporting_person === Userid && Fdata.status == 1
     );
-    console.log("TL===========>", TL);
     if (TL) {
       setReportingperson(
         [].concat
@@ -114,6 +128,7 @@ export default function LeaveDateBox(props) {
           startDate={startDate}
           endDate={endDate}
           setModel={setModel}
+          Model={Model}
         />
       ) : (
         ""
@@ -126,6 +141,7 @@ export default function LeaveDateBox(props) {
         selectsRange
         selectsDisabledDaysInRange
         inline
+        // excludeDates={excludeDays}
         dayClassName={(date) => {
           if (
             reportingperson &&

@@ -3,7 +3,10 @@ import { convert } from "../../Helpers/misc";
 import "./index.css";
 
 export default function LeaveForm(props) {
-  const { startDate, endDate, setModel } = props;
+  const { startDate, endDate, setModel, Model } = props;
+
+  let button1 = Model === "reportingperson" ? "Approved" : "Apply";
+  let button2 = Model === "reportingperson" ? "Rejected" : "Cancle";
 
   useEffect(() => {
     function handleEscapeKey(event) {
@@ -52,9 +55,9 @@ export default function LeaveForm(props) {
           </div>
           <div className="modalActions">
             <div className="actionsContainer">
-              <button className="Submitbtn">Apply</button>
+              <button className="Submitbtn">{button1}</button>
               <button className="cancelBtn" onClick={() => setModel(false)}>
-                Cancel
+                {button2}
               </button>
             </div>
           </div>
