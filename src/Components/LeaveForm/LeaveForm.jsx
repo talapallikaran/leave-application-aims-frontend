@@ -5,8 +5,13 @@ import "./index.css";
 export default function LeaveForm(props) {
   const { startDate, endDate, setModel, Model } = props;
 
-  let button1 = Model === "reportingperson" ? "Approved" : "Apply";
-  let button2 = Model === "reportingperson" ? "Rejected" : "Cancle";
+  // let button1 = Model === "reportingperson" ? "Approved" : "Apply";
+  // let button2 = Model === "reportingperson" ? "Rejected" : "Cancle";
+
+  let button1 = Model === "approvedLeave" ? "Hide" : "Apply";
+  let button2 = Model === "approvedLeave" ? "Cancle" : "Cancle";
+
+  console.log(Model, "Model");
 
   useEffect(() => {
     function handleEscapeKey(event) {
@@ -16,7 +21,7 @@ export default function LeaveForm(props) {
     }
     document.addEventListener("keydown", handleEscapeKey);
     return () => document.removeEventListener("keydown", handleEscapeKey);
-  }, []);
+  }, [setModel]);
 
   return (
     <>
@@ -34,14 +39,14 @@ export default function LeaveForm(props) {
                 {" "}
                 <p style={{ margin: 0 }}>Start-Date</p>
               </b>
-              {convert(startDate)}
+              {startDate}
             </div>
             <div>
               <b>
                 {" "}
                 <p style={{ margin: 0 }}>End-Date</p>
               </b>
-              {convert(endDate)}
+              {endDate}
             </div>
           </div>
           <div className="TeaxArea">

@@ -6,6 +6,7 @@ import "react-calendar/dist/Calendar.css";
 import moment, { ISO_8601 } from "moment/moment";
 import { enumerateDaysBetweenDates } from "../../Helpers/misc";
 import LeaveForm from "../LeaveForm/LeaveForm";
+import { convert } from "../../Helpers/misc";
 
 export default function LeaveDateBox(props) {
   const Userid = 1;
@@ -13,7 +14,6 @@ export default function LeaveDateBox(props) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [Model, setModel] = useState();
-  console.log("Model=========>", Model);
   const [activeLeaves, setActiveLeaves] = useState([]);
   const [approvedLeave, setApprovedLeave] = useState([]);
   const [rejected, setRejected] = useState([]);
@@ -27,28 +27,39 @@ export default function LeaveDateBox(props) {
   };
 
   useEffect(() => {
-    reportingperson.map((date) => {
-      console.log("Dates======>", moment(date, "DD-MM-YYYY")["_d"]);
-      if (moment(date, "DD-MM-YYYY")["_d"] === startDate || moment(date, "DD-MM-YYYY")["_d"] === endDate) {
+    // eslint-disable-next-line array-callback-return
+    console.log(reportingperson, "reportingperson");
+    reportingperson?.dates?.map((date) => {
+      if (
+        moment(date, "DD-MM-YYYY")["_d"] === startDate ||
+        moment(date, "DD-MM-YYYY")["_d"] === endDate
+      ) {
         setModel("reportingperson");
       }
     });
-  }, [Model]);
+  }, [Model, approvedLeave, endDate, reportingperson, startDate]);
 
   useEffect(() => {
-    const excludedays = activeLeaves.map((date) => {
+    const excludedaysed = activeLeaves.map((date) => {
       return moment(date, "DD-MM-YYYY")["_d"];
     });
-    setExcludeDays(excludedays);
+    setExcludeDays(excludedaysed);
   }, [activeLeaves]);
 
   useEffect(() => {
     if (startDate && endDate) {
-      setModel(true);
+      if (approvedLeave.includes(convert(startDate))) {
+        console.log("approvedLeave", approvedLeave);
+        setModel("approvedLeave");
+      } else {
+        setModel("User");
+      }
+
       window.scroll(0, 0);
     }
-  }, [startDate, endDate]);
+  }, [approvedLeave, endDate, reportingperson.reportingId, startDate]);
 
+  // eslint-disable-next-line no-extend-native
   Array.prototype.getUnique = function () {
     var o = {},
       a = [];
@@ -59,6 +70,7 @@ export default function LeaveDateBox(props) {
 
   useEffect(() => {
     let dates = [];
+    // eslint-disable-next-line array-callback-return
     userdata.leaves.map((data, index) => {
       if (data.startdate && data.enddate) {
         const daterange1 = enumerateDaysBetweenDates(
@@ -70,24 +82,24 @@ export default function LeaveDateBox(props) {
           status: data.status,
           reporting_person: userdata.reporting_person,
         });
-        console.log("dates=====>", dates);
       }
     });
     const status1 = dates.filter((Fdata) => Fdata.status === 1);
     const status2 = dates.filter((Fdata) => Fdata.status === 2);
     const status3 = dates.filter((Fdata) => Fdata.status === 3);
     const TL = dates.filter(
-      (Fdata) => Fdata.reporting_person === Userid && Fdata.status == 1
+      (Fdata) => Fdata.reporting_person === Userid && Fdata.status === 1
     );
     if (TL) {
-      setReportingperson(
-        [].concat
+      setReportingperson({
+        dates: [].concat
           .apply(
             [],
             TL.map((data) => data.date)
           )
-          .getUnique()
-      );
+          .getUnique(),
+        reportingId: 3,
+      });
     }
 
     if (status1) {
@@ -126,8 +138,16 @@ export default function LeaveDateBox(props) {
     <div className="Date-picker">
       {startDate && endDate && Model ? (
         <LeaveForm
-          startDate={startDate}
-          endDate={endDate}
+          startDate={
+            approvedLeave.includes(convert(startDate))
+              ? approvedLeave[0]
+              : convert(startDate)
+          }
+          endDate={
+            approvedLeave.includes(convert(endDate))
+              ? approvedLeave[approvedLeave.length - 1]
+              : convert(endDate)
+          }
           setModel={setModel}
           Model={Model}
         />
@@ -146,7 +166,7 @@ export default function LeaveDateBox(props) {
         dayClassName={(date) => {
           if (
             reportingperson &&
-            reportingperson?.includes(
+            reportingperson?.dates?.includes(
               moment(date, ISO_8601).format("DD-MM-YYYY")
             )
           ) {
@@ -175,3 +195,7 @@ export default function LeaveDateBox(props) {
     </div>
   );
 }
+
+// hello sir ,
+
+// let  me know once you are free so we can discuss about my  leave
