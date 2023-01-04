@@ -4,14 +4,9 @@ import "./index.css";
 
 export default function LeaveForm(props) {
   const { startDate, endDate, setModel, Model } = props;
+  console.log("Model", Model);
 
-  // let button1 = Model === "reportingperson" ? "Approved" : "Apply";
-  // let button2 = Model === "reportingperson" ? "Rejected" : "Cancle";
-
-  let button1 = Model === "approvedLeave" ? "Hide" : "Apply";
-  let button2 = Model === "approvedLeave" ? "Cancle" : "Cancle";
-
-  console.log(Model, "Model");
+  let button1 = Model === "reportingperson" ? "Approved" : "Apply";
 
   useEffect(() => {
     function handleEscapeKey(event) {
@@ -23,6 +18,15 @@ export default function LeaveForm(props) {
     return () => document.removeEventListener("keydown", handleEscapeKey);
   }, [setModel]);
 
+  const CloseButton = () => {
+    console.log("close");
+    setModel(false);
+    window.location.reload();
+  };
+  const CancelButton = () => {
+    setModel(false);
+    window.location.reload();
+  };
   return (
     <>
       {" "}
@@ -60,10 +64,21 @@ export default function LeaveForm(props) {
           </div>
           <div className="modalActions">
             <div className="actionsContainer">
-              <button className="Submitbtn">{button1}</button>
-              <button className="cancelBtn" onClick={() => setModel(false)}>
-                {button2}
-              </button>
+              {Model === "user" || Model === "reportingperson" ? (
+                <>
+                  <button className="Submitbtn">{button1}</button>
+                  <button className="cancelBtn" onClick={() => CancelButton()}>
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button className="cancelBtn" onClick={() => CloseButton()}>
+                    Close
+                  </button>
+                  <button className="cancelBtn">CancelLeave</button>
+                </>
+              )}
             </div>
           </div>
         </div>

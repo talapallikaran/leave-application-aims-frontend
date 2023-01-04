@@ -18,7 +18,10 @@ export default function LeaveDateBox(props) {
   const [approvedLeave, setApprovedLeave] = useState([]);
   const [rejected, setRejected] = useState([]);
   const [reportingperson, setReportingperson] = useState([]);
+  console.log("approvedLeave=====>", approvedLeave);
   const [excludeDays, setExcludeDays] = useState([]);
+  const [test, setTest] = useState([]);
+  console.log("test=======>", test);
 
   const onChange = (dates) => {
     const [start, end] = dates;
@@ -27,20 +30,7 @@ export default function LeaveDateBox(props) {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line array-callback-return
-    console.log(reportingperson, "reportingperson");
-    reportingperson?.dates?.map((date) => {
-      if (
-        moment(date, "DD-MM-YYYY")["_d"] === startDate ||
-        moment(date, "DD-MM-YYYY")["_d"] === endDate
-      ) {
-        setModel("reportingperson");
-      }
-    });
-  }, [Model, approvedLeave, endDate, reportingperson, startDate]);
-
-  useEffect(() => {
-    const excludedaysed = activeLeaves.map((date) => {
+    const excludedaysed = activeLeaves?.dates?.map((date) => {
       return moment(date, "DD-MM-YYYY")["_d"];
     });
     setExcludeDays(excludedaysed);
@@ -48,18 +38,57 @@ export default function LeaveDateBox(props) {
 
   useEffect(() => {
     if (startDate && endDate) {
-      if (approvedLeave.includes(convert(startDate))) {
-        console.log("approvedLeave", approvedLeave);
-        setModel("approvedLeave");
+      if (approvedLeave.dates.includes(convert(startDate))) {
+        if (approvedLeave.ApprovedLeaveIdWise.length > 0) {
+          approvedLeave.ApprovedLeaveIdWise.map((tdata) => {
+            if (tdata) {
+              if (tdata.date.includes(convert(startDate))) {
+                setTest(tdata.date);
+                setModel("approvedLeave");
+              }
+            }
+          });
+        }
+      } else if (rejected.dates.includes(convert(startDate))) {
+        if (rejected.RejectedleaveIdWise.length > 0) {
+          rejected.RejectedleaveIdWise.map((tdata) => {
+            if (tdata) {
+              if (tdata.date.includes(convert(startDate))) {
+                setTest(tdata.date);
+                setModel("RejectedLeave");
+              }
+            }
+          });
+        }
+      } else if (reportingperson.dates.includes(convert(startDate))) {
+        if (reportingperson.ReportingIdWiseLeave.length > 0) {
+          reportingperson.ReportingIdWiseLeave.map((tdata) => {
+            if (tdata) {
+              if (tdata.date.includes(convert(startDate))) {
+                setTest(tdata.date);
+                setModel("reportingperson");
+              }
+            }
+          });
+        }
+      } else if (activeLeaves.dates.includes(convert(startDate))) {
+        if (activeLeaves.ActiveLeaveIdWise.length > 0) {
+          activeLeaves.ActiveLeaveIdWise.map((tdata) => {
+            if (tdata) {
+              if (tdata.date.includes(convert(startDate))) {
+                setTest(tdata.date);
+                setModel("ActiveLeave");
+              }
+            }
+          });
+        }
       } else {
-        setModel("User");
+        setModel("user");
       }
-
       window.scroll(0, 0);
     }
-  }, [approvedLeave, endDate, reportingperson.reportingId, startDate]);
+  }, [startDate, endDate]);
 
-  // eslint-disable-next-line no-extend-native
   Array.prototype.getUnique = function () {
     var o = {},
       a = [];
@@ -70,7 +99,6 @@ export default function LeaveDateBox(props) {
 
   useEffect(() => {
     let dates = [];
-    // eslint-disable-next-line array-callback-return
     userdata.leaves.map((data, index) => {
       if (data.startdate && data.enddate) {
         const daterange1 = enumerateDaysBetweenDates(
@@ -80,6 +108,7 @@ export default function LeaveDateBox(props) {
         dates.push({
           date: daterange1,
           status: data.status,
+          reason: data.reason,
           reporting_person: userdata.reporting_person,
         });
       }
@@ -90,6 +119,7 @@ export default function LeaveDateBox(props) {
     const TL = dates.filter(
       (Fdata) => Fdata.reporting_person === Userid && Fdata.status === 1
     );
+
     if (TL) {
       setReportingperson({
         dates: [].concat
@@ -98,39 +128,42 @@ export default function LeaveDateBox(props) {
             TL.map((data) => data.date)
           )
           .getUnique(),
-        reportingId: 3,
+        ReportingIdWiseLeave: TL,
       });
     }
 
     if (status1) {
-      setActiveLeaves(
-        [].concat
+      setActiveLeaves({
+        dates: [].concat
           .apply(
             [],
             status1.map((data) => data.date)
           )
-          .getUnique()
-      );
+          .getUnique(),
+        ActiveLeaveIdWise: status1,
+      });
     }
     if (status2) {
-      setApprovedLeave(
-        [].concat
+      setApprovedLeave({
+        dates: [].concat
           .apply(
             [],
             status2.map((data) => data.date)
           )
-          .getUnique()
-      );
+          .getUnique(),
+        ApprovedLeaveIdWise: status2,
+      });
     }
     if (status3) {
-      setRejected(
-        [].concat
+      setRejected({
+        dates: [].concat
           .apply(
             [],
             status3.map((data) => data.date)
           )
-          .getUnique()
-      );
+          .getUnique(),
+        RejectedleaveIdWise: status3,
+      });
     }
   }, [userdata]);
 
@@ -139,13 +172,11 @@ export default function LeaveDateBox(props) {
       {startDate && endDate && Model ? (
         <LeaveForm
           startDate={
-            approvedLeave.includes(convert(startDate))
-              ? approvedLeave[0]
-              : convert(startDate)
+            test.includes(convert(startDate)) ? test[0] : convert(startDate)
           }
           endDate={
-            approvedLeave.includes(convert(endDate))
-              ? approvedLeave[approvedLeave.length - 1]
+            test.includes(convert(endDate))
+              ? test[test.length - 1]
               : convert(endDate)
           }
           setModel={setModel}
@@ -174,19 +205,25 @@ export default function LeaveDateBox(props) {
           }
           if (
             activeLeaves &&
-            activeLeaves?.includes(moment(date, ISO_8601).format("DD-MM-YYYY"))
+            activeLeaves?.dates?.includes(
+              moment(date, ISO_8601).format("DD-MM-YYYY")
+            )
           ) {
             return "isLeaveApplied";
           }
           if (
             approvedLeave &&
-            approvedLeave?.includes(moment(date, ISO_8601).format("DD-MM-YYYY"))
+            approvedLeave?.dates?.includes(
+              moment(date, ISO_8601).format("DD-MM-YYYY")
+            )
           ) {
             return "ApprovedLeave";
           }
           if (
             rejected &&
-            rejected?.includes(moment(date, ISO_8601).format("DD-MM-YYYY"))
+            rejected?.dates?.includes(
+              moment(date, ISO_8601).format("DD-MM-YYYY")
+            )
           ) {
             return "Rejected";
           }
