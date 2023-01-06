@@ -8,9 +8,15 @@ export default function Header() {
   const navigate = useNavigate();
   const successLoginData = useSelector((state) => state?.UserLoginReducer);
   const handleLogout = () => {
-    alert("Logout Sucessfully");
-    localStorage.removeItem();
+    alert("logout successfully");
     navigate("/");
+    localStorage.clear();
+    // const confirmBox = window.confirm("Are you sure  want  logout");
+    // if (confirmBox) {
+    //   navigate("/");
+    //   localStorage.clear();
+    //   window.location.reload();
+    // }
   };
   return (
     <div>
@@ -18,22 +24,24 @@ export default function Header() {
         <div className="Header-Text">
           <p>Apply Leave</p>
         </div>
-        {successLoginData?.LoginData ? 
-              <div className="User-logout">
-          <div className="User-img">
-            <img src={LeaveUserIcon} alt="UserIcon" width={33} height={30} />
+        {successLoginData?.LoginData ? (
+          <div className="User-logout">
+            <div className="User-img">
+              <img src={LeaveUserIcon} alt="UserIcon" width={33} height={30} />
+            </div>
+            <div className="log-out">
+              <img
+                src={LogOut}
+                alt="Logout"
+                width={30}
+                height={30}
+                onClick={handleLogout}
+              />
+            </div>
           </div>
-          <div className="log-out">
-            <img
-              src={LogOut}
-              alt="Logout"
-              width={30}
-              height={30}
-              onClick={handleLogout}
-            />
-          </div>
-        </div>  :''}
-   
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

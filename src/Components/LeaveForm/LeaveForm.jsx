@@ -1,11 +1,18 @@
-import React, { useEffect } from "react";
-import { convert } from "../../Helpers/misc";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { ApplyLeave } from "../../Store/Action/ApplyLeaveAction";
+import { CancelLeave } from "../../Store/Action/CancelLeaveAction";
+import { ApplyleaveSuccessnotify } from "../../Helpers/Toasthelper";
+import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify";
 import "./index.css";
 
 export default function LeaveForm(props) {
-  const { startDate, endDate, setModel, Model, reason } = props;
+  const { startDate, endDate, setModel, Model, reason, userID ,leave_id} = props;
   console.log("Model", Model);
-
+  const dispatch = useDispatch();
+  const [leavereason, setLeaveReason] = useState(null);
+  const [error, setError] = useState(null);
   let button1 = Model === "reportingperson" ? "Approved" : "Apply";
 
   useEffect(() => {
@@ -18,8 +25,41 @@ export default function LeaveForm(props) {
     return () => document.removeEventListener("keydown", handleEscapeKey);
   }, [setModel]);
 
+  const Handlereason = (e) => {
+    setLeaveReason(e.target.value);
+  };
+
+  const HandleCancelLeave = () => {
+    console.log("cancelLeave");
+    dispatch(CancelLeave(leave_id));
+    window.location.reload()
+  };
+  const handleApply = () => {
+    if (leavereason === null || leavereason === "") {
+      setError("Please Apply The leave Reason ");
+    }
+    const ApplyleaveData = {
+      start_date: startDate,
+      end_date: endDate,
+      reason: leavereason,
+      user_id: userID,
+    };
+    console.log("Applyleave", ApplyleaveData);
+    if (leavereason) {
+      setError(null);
+      dispatch(ApplyLeave(ApplyleaveData));
+      ApplyleaveSuccessnotify();
+      setTimeout(() => {
+        setModel(false);
+      }, 3000);
+      window.location.reload();
+    }
+  };
+
+  const handleApproved = () => {
+    console.log("approved");
+  };
   const CloseButton = () => {
-    console.log("close");
     setModel(false);
     window.location.reload();
   };
@@ -30,6 +70,7 @@ export default function LeaveForm(props) {
   return (
     <>
       {" "}
+      <ToastContainer />
       <div className="maindiv" onClick={() => setModel(false)} />
       <div className="model">
         <div className="LeaveModel">
@@ -65,13 +106,24 @@ export default function LeaveForm(props) {
               placeholder="Enter Reason"
               disabled={reason ? true : ""}
               defaultValue={reason}
+              onChange={Handlereason}
             ></textarea>
+            {error && (
+              <p style={{ fontWeight: "600", color: "red" }}>{error}</p>
+            )}
           </div>
           <div className="modalActions">
             <div className="actionsContainer">
               {Model === "user" || Model === "reportingperson" ? (
                 <>
-                  <button className="Submitbtn">{button1}</button>
+                  <button
+                    className="Submitbtn"
+                    onClick={
+                      Model == "reportingperson" ? handleApproved : handleApply
+                    }
+                  >
+                    {button1}
+                  </button>
                   <button className="cancelBtn" onClick={() => CancelButton()}>
                     Cancel
                   </button>
@@ -81,7 +133,9 @@ export default function LeaveForm(props) {
                   <button className="cancelBtn" onClick={() => CloseButton()}>
                     Close
                   </button>
-                  <button className="cancelBtn">CancelLeave</button>
+                  <button className="cancelBtn" onClick={HandleCancelLeave}>
+                    CancelLeave
+                  </button>
                 </>
               )}
             </div>

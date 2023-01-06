@@ -9,8 +9,7 @@ import LeaveForm from "../LeaveForm/LeaveForm";
 import { convert } from "../../Helpers/misc";
 
 export default function LeaveDateBox(props) {
-  const Userid = 4;
-  const { userdata } = props;
+  const { userdata, user_id } = props;
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [Model, setModel] = useState();
@@ -62,7 +61,6 @@ export default function LeaveDateBox(props) {
             }
           });
         }
-        
       } else if (reportingperson?.dates?.includes(convert(startDate))) {
         if (reportingperson.ReportingIdWiseLeave.length > 0) {
           reportingperson.ReportingIdWiseLeave.map((tdata) => {
@@ -79,7 +77,7 @@ export default function LeaveDateBox(props) {
           activeLeaves.ActiveLeaveIdWise.map((tdata) => {
             if (tdata) {
               if (tdata.date.includes(convert(startDate))) {
-                setTest({ date: tdata.date, reason: tdata.reason });
+                setTest({ date: tdata.date, reason: tdata.reason, leave_id : tdata.leave_id });
                 setModel("ActiveLeave");
               }
             }
@@ -121,6 +119,7 @@ export default function LeaveDateBox(props) {
             status: data.status,
             reason: data.reason,
             reporting_person: userdata.reporting_person,
+            leave_id: data.leave_id,
           });
         }
       });
@@ -128,7 +127,7 @@ export default function LeaveDateBox(props) {
       const status2 = dates.filter((Fdata) => Fdata.status === 2);
       const status3 = dates.filter((Fdata) => Fdata.status === 3);
       const TL = dates.filter(
-        (Fdata) => Fdata.reporting_person === Userid && Fdata.status === 1
+        (Fdata) => Fdata.reporting_person === user_id && Fdata.status === 1
       );
       if (TL) {
         setReportingperson({
@@ -197,8 +196,10 @@ export default function LeaveDateBox(props) {
               ? test.reason
               : ""
           }
+          leave_id={test?.leave_id}
           setModel={setModel}
           Model={Model}
+          userID={userdata.id}
         />
       ) : (
         ""

@@ -9,7 +9,6 @@ import { Getuser } from "../../Store/Action/GetUserAction";
 export default function EmployeeCard() {
   const dispatch = useDispatch();
   const UserData = useSelector((state) => state?.getUserReducer);
-  console.log("userdata======>", UserData?.UserData);
   const successLoginData = useSelector((state) => state?.UserLoginReducer);
 
   if (successLoginData?.LoginData?.accessToken) {
@@ -44,7 +43,10 @@ export default function EmployeeCard() {
               <div className="user-name">
                 <p>{getInitials(userdata.name)}</p>
               </div>
-              <LeaveDateBox userdata={userdata} />
+              <LeaveDateBox
+                userdata={userdata}
+                user_id={Login_data?.user_id}
+              />
             </div>
           );
         })}

@@ -9,3 +9,10 @@ export const Failednotify = () => {
     autoClose: 3000,
   });
 };
+
+export const ApplyleaveSuccessnotify = () => {
+  toast.success("Apply Leave successfully", {
+    autoClose: 3000,
+    position: toast.POSITION.TOP_CENTER,
+  });
+};

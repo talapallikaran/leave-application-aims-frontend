@@ -3,7 +3,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { userLogin } from "../../Store/Action/AuthAction/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { Sucessnotify, Failednotify } from "./Toasthelper";
+import { Sucessnotify, Failednotify } from "../../Helpers/Toasthelper";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 
@@ -13,7 +13,6 @@ export default function Login() {
   const [email, setEmail] = useState(null);
   const [password, setpassWord] = useState(null);
   const successLoginData = useSelector((state) => state?.UserLoginReducer);
-  console.log("successLoginData====>", successLoginData?.FailedLoginData);
   const LoginInfo = {
     email: email,
     password: password,
