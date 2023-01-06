@@ -7,13 +7,12 @@ export const userLogin = (data) => async (dispatch) => {
 
     dispatch({
       type: AUTH,
-
+      
       payload: { data: res.data },
     });
   } catch (error) {
     dispatch({
       type: AUTHFAILED,
-
       payload: { data: error.response.data },
     });
   }

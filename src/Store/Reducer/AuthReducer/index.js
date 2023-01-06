@@ -1,6 +1,7 @@
-import { AUTH, AUTHFAILED } from '../../ActionTypes/index';
+import { AUTH, AUTHFAILED } from "../../ActionTypes/index";
 const initialstate = {
   LoginData: [],
+  FailedLoginData:[]
 };
 
 const UserLoginReducer = (state = initialstate, action) => {
@@ -8,8 +9,13 @@ const UserLoginReducer = (state = initialstate, action) => {
     case AUTH:
       return {
         ...state,
-         ...action.payload,
+        LoginData:action.payload.data,
       };
+      case AUTHFAILED:
+        return{
+          ...state,
+          FailedLoginData:action.payload.data
+        }
 
     default:
       return state;

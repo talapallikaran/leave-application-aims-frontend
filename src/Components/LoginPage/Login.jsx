@@ -1,20 +1,44 @@
-import React, { useState } from "react";
-import "./Login.css";
-import {userLogin} from '../../Store/Action/AuthAction/index' 
+import React, { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import { userLogin } from "../../Store/Action/AuthAction/index";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { Sucessnotify, Failednotify } from "./Toasthelper";
+import "react-toastify/dist/ReactToastify.css";
+import "./Login.css";
 
 export default function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState(null);
   const [password, setpassWord] = useState(null);
-  const dispatch = useDispatch()
-
+  const successLoginData = useSelector((state) => state?.UserLoginReducer);
+  console.log("successLoginData====>", successLoginData?.FailedLoginData);
   const LoginInfo = {
-    email:email,
-    password:password
-  }
- const handleSubmit = () => {
-  dispatch(userLogin(LoginInfo))
- }
+    email: email,
+    password: password,
+  };
+  const handleSubmit = () => {
+    dispatch(userLogin(LoginInfo));
+  };
+
+  useEffect(() => {
+    if (
+      email === successLoginData?.LoginData?.email &&
+      successLoginData?.LoginData?.statusCode == 200
+    ) {
+      Sucessnotify();
+      setTimeout(() => {
+        navigate("/leaveapplication");
+      }, 3000);
+    }
+    if (successLoginData?.FailedLoginData?.statusCode == 401) {
+      Failednotify();
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    }
+  }, [email, successLoginData]);
   return (
     <div>
       <div className="logingpage">
@@ -54,7 +78,10 @@ export default function Login() {
             <label htmlFor="Remember">Remember Me</label>
           </div>
           <div className="actionsContainer">
-            <button className="Submitbtn" onClick={handleSubmit}>Login</button>
+            <button className="Submitbtn" onClick={handleSubmit}>
+              Login
+            </button>
+            <ToastContainer />
           </div>
         </div>
       </div>

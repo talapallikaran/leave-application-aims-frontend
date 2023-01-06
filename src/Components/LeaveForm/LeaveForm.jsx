@@ -3,7 +3,7 @@ import { convert } from "../../Helpers/misc";
 import "./index.css";
 
 export default function LeaveForm(props) {
-  const { startDate, endDate, setModel, Model } = props;
+  const { startDate, endDate, setModel, Model, reason } = props;
   console.log("Model", Model);
 
   let button1 = Model === "reportingperson" ? "Approved" : "Apply";
@@ -60,7 +60,12 @@ export default function LeaveForm(props) {
                 Reason
               </p>
             </b>
-            <textarea name="" placeholder="Enter Reason"></textarea>
+            <textarea
+              name=""
+              placeholder="Enter Reason"
+              disabled={reason ? true : ""}
+              defaultValue={reason}
+            ></textarea>
           </div>
           <div className="modalActions">
             <div className="actionsContainer">
