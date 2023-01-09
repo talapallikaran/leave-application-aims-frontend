@@ -2,9 +2,11 @@ import { CANCEL_LEAVE, FAILED_CANCEL_LEAVE } from "../../ActionTypes/index";
 
 import axios from "axios";
 
-export const CancelLeave = (leave_id) => async (dispatch) => {
+export const CancelLeave = (leave_id, token) => async (dispatch) => {
   try {
-    const res = await axios.delete(`http://localhost:3100/leave/${leave_id}`);
+    const res = await axios.delete(`http://localhost:3100/leave/${leave_id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
     dispatch({
       type: CANCEL_LEAVE,

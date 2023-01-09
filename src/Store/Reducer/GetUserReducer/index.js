@@ -1,8 +1,8 @@
-import { Action } from "@remix-run/router";
-import { GET_USER } from "../../ActionTypes";
+import { GET_USER, FAILED_USER_API } from "../../ActionTypes";
 
 const initialstate = {
   UserData: [],
+  AutherationError: [],
 };
 
 const getUserReducer = (state = initialstate, action) => {
@@ -12,6 +12,11 @@ const getUserReducer = (state = initialstate, action) => {
       return {
         ...state,
         UserData: action.payload,
+      };
+    case FAILED_USER_API:
+      return {
+        ...state,
+        AutherationError: action.payload.data,
       };
 
     default:

@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import LeaveDateBox from "../LeaveDateBox/LeaveDateBox";
 import "./index.css";
-import dummyData from "./dummydata.json";
 import { getInitials } from "../../Helpers/misc";
 import { useDispatch, useSelector } from "react-redux";
 import { Getuser } from "../../Store/Action/GetUserAction";
+import { useNavigate } from "react-router";
 
 export default function EmployeeCard() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const UserData = useSelector((state) => state?.getUserReducer);
   const successLoginData = useSelector((state) => state?.UserLoginReducer);
 
@@ -22,20 +23,13 @@ export default function EmployeeCard() {
     dispatch(Getuser(Login_data?.accessToken));
   }, [Login_data?.accessToken]);
 
+  useEffect(() => {
+    if (!Login_data?.accessToken) {
+      navigate("/");
+    }
+  }, [UserData]);
   return (
     <div>
-      {/* <div className="Leave-Com-Wrapper">
-        {dummyData.map((userdata, id) => {
-          return (
-            <div key={id} className="Main-Leave-Div">
-              <div className="user-name">
-                <p>{getInitials(userdata.name)}</p>
-              </div>
-              <LeaveDateBox userdata={userdata} />
-            </div>
-          );
-        })}
-      </div> */}
       <div className="Leave-Com-Wrapper">
         {UserData?.UserData?.map((userdata, id) => {
           return (
@@ -46,6 +40,7 @@ export default function EmployeeCard() {
               <LeaveDateBox
                 userdata={userdata}
                 user_id={Login_data?.user_id}
+                token={Login_data?.accessToken}
               />
             </div>
           );

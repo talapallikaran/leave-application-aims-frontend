@@ -2,18 +2,29 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ApplyLeave } from "../../Store/Action/ApplyLeaveAction";
 import { CancelLeave } from "../../Store/Action/CancelLeaveAction";
+import { UpdateLeaveStatus } from "../../Store/Action/UpdateLeaveStatusAction";
 import { ApplyleaveSuccessnotify } from "../../Helpers/Toasthelper";
 import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "./index.css";
 
 export default function LeaveForm(props) {
-  const { startDate, endDate, setModel, Model, reason, userID ,leave_id} = props;
-  console.log("Model", Model);
+  const {
+    startDate,
+    endDate,
+    setModel,
+    Model,
+    reason,
+    userID,
+    leave_id,
+    reporting_person,
+    token,
+  } = props;
   const dispatch = useDispatch();
   const [leavereason, setLeaveReason] = useState(null);
   const [error, setError] = useState(null);
   let button1 = Model === "reportingperson" ? "Approved" : "Apply";
+  let button2 = Model === "reportingperson" ? "Rejected" : "cancel";
 
   useEffect(() => {
     function handleEscapeKey(event) {
@@ -31,8 +42,8 @@ export default function LeaveForm(props) {
 
   const HandleCancelLeave = () => {
     console.log("cancelLeave");
-    dispatch(CancelLeave(leave_id));
-    window.location.reload()
+    dispatch(CancelLeave(leave_id, token));
+    window.location.reload();
   };
   const handleApply = () => {
     if (leavereason === null || leavereason === "") {
@@ -47,24 +58,39 @@ export default function LeaveForm(props) {
     console.log("Applyleave", ApplyleaveData);
     if (leavereason) {
       setError(null);
-      dispatch(ApplyLeave(ApplyleaveData));
+      dispatch(ApplyLeave(ApplyleaveData, token));
       ApplyleaveSuccessnotify();
       setTimeout(() => {
         setModel(false);
+        window.location.reload()
       }, 3000);
-      window.location.reload();
     }
   };
 
   const handleApproved = () => {
-    console.log("approved");
+    const Approvedleave = {
+      user_id: userID,
+      leave_id: leave_id,
+      reporting_person: reporting_person,
+      status: 2,
+    };
+    console.log("approved", Approvedleave);
+    dispatch(UpdateLeaveStatus(Approvedleave, token));
+    window.location.reload();
   };
   const CloseButton = () => {
     setModel(false);
     window.location.reload();
   };
-  const CancelButton = () => {
-    setModel(false);
+  const RejectedLeave = () => {
+    const Rejectedleave = {
+      user_id: userID,
+      leave_id: leave_id,
+      reporting_person: reporting_person,
+      status: 3,
+    };
+    console.log("RejectedLeave", Rejectedleave);
+    dispatch(UpdateLeaveStatus(Rejectedleave, token));
     window.location.reload();
   };
   return (
@@ -124,8 +150,15 @@ export default function LeaveForm(props) {
                   >
                     {button1}
                   </button>
-                  <button className="cancelBtn" onClick={() => CancelButton()}>
-                    Cancel
+                  <button
+                    className="cancelBtn"
+                    onClick={
+                      Model == "reportingperson"
+                        ? RejectedLeave
+                        : () => setModel(false)
+                    }
+                  >
+                    {button2}
                   </button>
                 </>
               ) : (

@@ -11,12 +11,7 @@ export default function Header() {
     alert("logout successfully");
     navigate("/");
     localStorage.clear();
-    // const confirmBox = window.confirm("Are you sure  want  logout");
-    // if (confirmBox) {
-    //   navigate("/");
-    //   localStorage.clear();
-    //   window.location.reload();
-    // }
+    window.location.reload()
   };
   return (
     <div>
