@@ -19,7 +19,9 @@ export default function LeaveForm(props) {
     leave_id,
     reporting_person,
     token,
+    Login_user_id,
   } = props;
+  console.log("login userid", reporting_person, Login_user_id);
   const dispatch = useDispatch();
   const [leavereason, setLeaveReason] = useState(null);
   const [error, setError] = useState(null);
@@ -62,7 +64,7 @@ export default function LeaveForm(props) {
       ApplyleaveSuccessnotify();
       setTimeout(() => {
         setModel(false);
-        window.location.reload()
+        window.location.reload();
       }, 3000);
     }
   };
@@ -142,33 +144,57 @@ export default function LeaveForm(props) {
             <div className="actionsContainer">
               {Model === "user" || Model === "reportingperson" ? (
                 <>
-                  <button
-                    className="Submitbtn"
-                    onClick={
-                      Model == "reportingperson" ? handleApproved : handleApply
-                    }
-                  >
-                    {button1}
-                  </button>
-                  <button
-                    className="cancelBtn"
-                    onClick={
-                      Model == "reportingperson"
-                        ? RejectedLeave
-                        : () => setModel(false)
-                    }
-                  >
-                    {button2}
-                  </button>
+                  {userID == Login_user_id ||
+                  Login_user_id == reporting_person ? (
+                    <>
+                      {" "}
+                      <button
+                        className="Submitbtn"
+                        onClick={
+                          Model == "reportingperson"
+                            ? handleApproved
+                            : handleApply
+                        }
+                      >
+                        {button1}
+                      </button>
+                      <button
+                        className="rejectedbtn"
+                        onClick={
+                          Model == "reportingperson"
+                            ? RejectedLeave
+                            : () => setModel(false)
+                        }
+                      >
+                        {button2}
+                      </button>
+                    </>
+                  ) : (
+                    <button className="cancelBtn" onClick={() => CloseButton()}>
+                      Close
+                    </button>
+                  )}
                 </>
               ) : (
                 <>
-                  <button className="cancelBtn" onClick={() => CloseButton()}>
-                    Close
-                  </button>
-                  <button className="cancelBtn" onClick={HandleCancelLeave}>
-                    CancelLeave
-                  </button>
+                  {userID == Login_user_id ||
+                  Login_user_id == reporting_person ? (
+                    <>
+                      <button
+                        className="cancelBtn"
+                        onClick={() => CloseButton()}
+                      >
+                        Close
+                      </button>
+                      <button className="cancelBtn" onClick={HandleCancelLeave}>
+                        CancelLeave
+                      </button>
+                    </>
+                  ) : (
+                    <button className="cancelBtn" onClick={() => CloseButton()}>
+                      Close
+                    </button>
+                  )}
                 </>
               )}
             </div>

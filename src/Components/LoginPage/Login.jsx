@@ -4,6 +4,7 @@ import { userLogin } from "../../Store/Action/AuthAction/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Sucessnotify, Failednotify } from "../../Helpers/Toasthelper";
+import Header from "../Header/Header";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 
@@ -24,11 +25,22 @@ export default function Login() {
   useEffect(() => {
     if (
       email === successLoginData?.LoginData?.email &&
-      successLoginData?.LoginData?.statusCode == 200
+      successLoginData?.LoginData?.statusCode == 200 &&
+      successLoginData?.LoginData?.role_id == 2
     ) {
       Sucessnotify();
       setTimeout(() => {
         navigate("/leaveapplication");
+      }, 3000);
+    }
+    if (
+      email === successLoginData?.LoginData?.email &&
+      successLoginData?.LoginData?.statusCode == 200 &&
+      successLoginData?.LoginData?.role_id === 1
+    ) {
+      Sucessnotify();
+      setTimeout(() => {
+        navigate("/adminpage");
       }, 3000);
     }
     if (successLoginData?.FailedLoginData?.statusCode == 401) {
@@ -38,8 +50,10 @@ export default function Login() {
       }, 3000);
     }
   }, [email, successLoginData]);
+
   return (
     <div>
+      <Header />
       <div className="logingpage">
         <p className="login-text">Login</p>
         <div className="loginform">

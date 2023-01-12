@@ -15,6 +15,7 @@ export const convert = function (str) {
   return [day, mnth, date.getFullYear()].join("-");
 };
 
+
 export const enumerateDaysBetweenDates = (startDate, endDate) => {
   var now = startDate.clone(),
     dates = [];

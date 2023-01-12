@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  flex: 0.9;
+  margin-top: 20px;
+  margin-left: 20px;
+  flex-direction: column;
+}
+.wrapper p {
+  font-size: 18px;
+  font-weight: 700;
+  flex-direction: column;
+  display: flex;
+}
+.usertable .editbtn {
+  background-color: var(--lightgreen);
+  color: var(--white);
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--lightgreen);
+  font-weight: 700;
+}
+th,
+td {
+  padding: 15px;
+}
+tr:nth-child(even) {
+  background-color: var(--grey);
+}

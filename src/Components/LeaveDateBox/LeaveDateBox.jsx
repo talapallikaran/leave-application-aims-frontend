@@ -9,8 +9,7 @@ import LeaveForm from "../LeaveForm/LeaveForm";
 import { convert } from "../../Helpers/misc";
 
 export default function LeaveDateBox(props) {
-  const { userdata, user_id, token } = props;
-  console.log("user_id==========>", user_id);
+  const { userdata, Login_user_id, token } = props;
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [Model, setModel] = useState();
@@ -20,7 +19,6 @@ export default function LeaveDateBox(props) {
   const [reportingperson, setReportingperson] = useState([]);
   const [excludeDays, setExcludeDays] = useState([]);
   const [test, setTest] = useState([]);
-  console.log("test=======>", test);
 
   const onChange = (dates) => {
     const [start, end] = dates;
@@ -40,12 +38,13 @@ export default function LeaveDateBox(props) {
       if (approvedLeave?.dates?.includes(convert(startDate))) {
         if (approvedLeave?.ApprovedLeaveIdWise?.length > 0) {
           approvedLeave.ApprovedLeaveIdWise.map((tdata) => {
-            if (
-              tdata.reporting_person === user_id ||
-              user_id == tdata.user_id
-            ) {
+            if (tdata) {
               if (tdata.date.includes(convert(startDate))) {
-                setTest({ date: tdata.date, reason: tdata.reason });
+                setTest({
+                  date: tdata.date,
+                  reason: tdata.reason,
+                  reporting_person: tdata.reporting_person,
+                });
                 setModel("approvedLeave");
                 window.scroll(0, 0);
               }
@@ -55,10 +54,7 @@ export default function LeaveDateBox(props) {
       } else if (rejected?.dates?.includes(convert(startDate))) {
         if (rejected.RejectedleaveIdWise.length > 0) {
           rejected.RejectedleaveIdWise.map((tdata) => {
-            if (
-              tdata.reporting_person === user_id ||
-              user_id == tdata.user_id
-            ) {
+            if (tdata) {
               if (tdata.date.includes(convert(startDate))) {
                 setTest({
                   date: tdata.date,
@@ -75,10 +71,7 @@ export default function LeaveDateBox(props) {
       } else if (reportingperson?.dates?.includes(convert(startDate))) {
         if (reportingperson.ReportingIdWiseLeave.length > 0) {
           reportingperson.ReportingIdWiseLeave.map((tdata) => {
-            if (
-              tdata.reporting_person === user_id ||
-              user_id == tdata.user_id
-            ) {
+            if (tdata) {
               if (tdata.date.includes(convert(startDate))) {
                 setTest({
                   date: tdata.date,
@@ -95,15 +88,13 @@ export default function LeaveDateBox(props) {
       } else if (activeLeaves?.dates?.includes(convert(startDate))) {
         if (activeLeaves.ActiveLeaveIdWise.length > 0) {
           activeLeaves.ActiveLeaveIdWise.map((tdata) => {
-            if (
-              tdata.reporting_person === user_id ||
-              user_id == tdata.user_id
-            ) {
+            if (tdata) {
               if (tdata.date.includes(convert(startDate))) {
                 setTest({
                   date: tdata.date,
                   reason: tdata.reason,
                   leave_id: tdata.leave_id,
+                  reporting_person: tdata.reporting_person,
                 });
                 setModel("ActiveLeave");
                 window.scroll(0, 0);
@@ -112,11 +103,9 @@ export default function LeaveDateBox(props) {
           });
         }
       } else if (startDate && endDate) {
-        if (userdata.id === user_id) {
-          setTest([]);
-          setModel("user");
-          window.scroll(0, 0);
-        }
+        setTest([]);
+        setModel("user");
+        window.scroll(0, 0);
       }
     }
   }, [startDate, endDate]);
@@ -152,9 +141,9 @@ export default function LeaveDateBox(props) {
       const status2 = dates.filter((Fdata) => Fdata.status === 2);
       const status3 = dates.filter((Fdata) => Fdata.status === 3);
       const TL = dates.filter(
-        (Fdata) => Fdata.reporting_person === user_id && Fdata.status === 1
+        (Fdata) =>
+          Fdata.reporting_person === Login_user_id && Fdata.status === 1
       );
-      console.log("TL=======>", TL);
       if (TL) {
         setReportingperson({
           dates: [].concat
@@ -225,6 +214,7 @@ export default function LeaveDateBox(props) {
           setModel={setModel}
           Model={Model}
           userID={userdata.id}
+          Login_user_id={Login_user_id}
           leave_id={
             test?.date?.length > 0 && test.date.includes(convert(startDate))
               ? test?.leave_id

@@ -16,3 +16,9 @@ export const ApplyleaveSuccessnotify = () => {
     position: toast.POSITION.TOP_CENTER,
   });
 };
+export const UserSessionExpire = () => {
+  toast.error("your session is expried!", {
+    autoClose: 3000,
+    position: toast.POSITION.TOP_CENTER,
+  });
+};

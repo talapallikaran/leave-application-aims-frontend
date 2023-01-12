@@ -1,17 +1,18 @@
 import React from "react";
 import "./Header.css";
-import { UserIcon, LogOut, LeaveUserIcon } from "../../Images/Index";
+import { LogOut, LeaveUserIcon } from "../../Images/Index";
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
 
-export default function Header() {
+
+export default function Header(props) {
+  const { token } = props;
   const navigate = useNavigate();
-  const successLoginData = useSelector((state) => state?.UserLoginReducer);
+
   const handleLogout = () => {
     alert("logout successfully");
     navigate("/");
     localStorage.clear();
-    window.location.reload()
+    window.location.reload();
   };
   return (
     <div>
@@ -19,7 +20,7 @@ export default function Header() {
         <div className="Header-Text">
           <p>Apply Leave</p>
         </div>
-        {successLoginData?.LoginData ? (
+        {token ? (
           <div className="User-logout">
             <div className="User-img">
               <img src={LeaveUserIcon} alt="UserIcon" width={33} height={30} />

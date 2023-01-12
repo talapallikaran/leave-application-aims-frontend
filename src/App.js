@@ -1,7 +1,7 @@
 import "./App.css";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
-import LeaveCalendar from "./Pages/LeaveCalendar";
+import { LeaveCalendar, AdminPage } from "./Pages/Index";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Components/LoginPage/Login";
 
@@ -9,10 +9,11 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
+        {/* <Header /> */}
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/leaveapplication" element={<LeaveCalendar />} />
+          <Route path="/adminpage" element={<AdminPage />} />
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>
