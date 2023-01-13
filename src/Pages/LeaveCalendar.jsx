@@ -8,10 +8,10 @@ export default function LeaveCalendar() {
   const navigate = useNavigate();
   const UserData = useSelector((state) => state?.getUserReducer);
 
-  UserSessionExpire();
   useEffect(() => {
     if (UserData?.AutherationError?.statusCode) {
       console.log("session expire");
+      UserSessionExpire();
       setTimeout(() => {
         navigate("/");
         localStorage.clear();

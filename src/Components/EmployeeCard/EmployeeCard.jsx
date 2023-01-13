@@ -11,7 +11,6 @@ export default function EmployeeCard() {
   const successLoginData = useSelector((state) => state?.UserLoginReducer);
   const UserData = useSelector((state) => state?.getUserReducer);
 
-
   if (successLoginData?.LoginData?.accessToken) {
     localStorage.setItem(
       "LoginData",

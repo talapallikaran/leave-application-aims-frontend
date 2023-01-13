@@ -3,19 +3,34 @@ import UseForm from "./UseForm";
 import "./index.css";
 
 export default function EditForm(props) {
-  const { setEditmodel, userdata, AlluserData, token } = props;
-  const { handleSubmit, values, setvalues } = UseForm(
+  const {
+    editmodel,
+    setEditmodel,
+    userdata,
+    AlluserData,
+    token,
+    setAddUsermodel,
+  } = props;
+  const { handleSubmit, values, setvalues, handleAdd } = UseForm(
     userdata,
     token,
-    setEditmodel
+    setEditmodel,
+    editmodel,
+    setAddUsermodel
   );
-  const fiterdata = AlluserData.filter((udata) => udata.name !== values.name);
+  const fiterdata = AlluserData.filter((udata) => udata.name !== userdata.name);
+  const ModelTitle = editmodel ? "EditForm" : "Add User";
   return (
     <div>
       <div className="maindiv" onClick={() => setEditmodel(false)}></div>
       <div className="form-popup">
-        <p style={{ marginBottom: 0, marginTop: 5 }}>Edit Form</p>
-        <button className="closeBtn" onClick={() => setEditmodel(false)}>
+        <p style={{ marginBottom: 0, marginTop: 5 }}>{ModelTitle}</p>
+        <button
+          className="closeBtn"
+          onClick={() =>
+            editmodel ? setEditmodel(false) : setAddUsermodel(false)
+          }
+        >
           x
         </button>
         <div className="form-inputs">
@@ -131,11 +146,63 @@ export default function EditForm(props) {
               </>
             )}
           </select>
+          {!editmodel ? (
+            <div className="password" style={{ display: "flex", gap: 60 }}>
+              <div>
+                <label htmlFor="">Password</label>
+                <br />
+                <input
+                  style={{ width: "110%" }}
+                  type="password"
+                  name="password"
+                  placeholder="Enter password"
+                  onChange={(e) =>
+                    setvalues((prev) => {
+                      return {
+                        ...prev,
+                        password: e.target.value,
+                      };
+                    })
+                  }
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="">Confirm password</label>
+                <br />
+                <input
+                  style={{ width: "110%" }}
+                  type="password"
+                  name="ConfirmPassword"
+                  placeholder="Enter confirm password"
+                  onChange={(e) =>
+                    setvalues((prev) => {
+                      return {
+                        ...prev,
+                        confirmpassword: e.target.value,
+                      };
+                    })
+                  }
+                  required
+                />
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
           <div className="actioncontainer">
-            <button className="Submitbtn" onClick={handleSubmit}>
+            <button
+              className="Submitbtn"
+              onClick={editmodel ? handleSubmit : handleAdd}
+            >
               Submit
             </button>
-            <button className="cancelbtn" onClick={() => setEditmodel(false)}>
+            <button
+              className="cancelbtn"
+              onClick={() =>
+                editmodel ? setEditmodel(false) : setAddUsermodel(false)
+              }
+            >
               Cancel
             </button>
           </div>

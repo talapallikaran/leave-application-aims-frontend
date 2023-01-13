@@ -1,26 +1,56 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 .Wrapper .sidebar {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   flex: 0.3;
   width: auto;
   height: 100%;
-  padding-right: 125px;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to bottom right,
     var(--secondary),
     var(--primary)
-  );
+  ); */
+  background-color: black;
   color: var(--white);
 }
-.Wrapper .sidebar .List a {
+.Wrapper .sidebar a {
+  padding: 8px 60px 8px 30px;
+  text-decoration: none;
+  font-size: 20px;
   color: var(--white);
+  display: block;
+  transition: 0.3s;
   font-weight: 700;
-  padding-top: 10px;
-  padding-left: 15px;
-  font-size: 18px;
 }
-.Wrapper .sidebar .List {
-  padding-top: 10px;
-  padding-left: 15px;
+
+.Wrapper .sidebar a:hover {
+  padding: 8px 60px 8px 30px;
+  text-decoration: none;
+  font-size: 20px;
+  color: black;
+  background-color: var(--white);
+  display: block;
+  transition: 0.3s;
+  font-weight: 700;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+
+}
+.Wrapper .sidebar a.active {
+  padding: 8px 60px 8px 30px;
+  text-decoration: none;
+  font-size: 20px;
+  color: black;
+  background-color: var(--white);
+  display: block;
+  transition: 0.3s;
+  font-weight: 700;
+  border-right: 2px solid black;
+}
+.Wrapper .sidebar .closebtn {
+  top: 0;
+  left: 0;
+  font-size: 36px;
+  margin-left: 135px;
+  color: var(--grey);
 }

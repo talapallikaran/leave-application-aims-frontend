@@ -1,26 +1,18 @@
 import React from "react";
 import "./index.css";
 
-export default function LeftnavigationBar() {
+export default function LeftnavigationBar(props) {
+  const { setLeftNavigation } = props;
   return (
     <div className="Wrapper">
       <div className="sidebar">
-        <div className="List">
-          <a href="">
-            <span className="icon">
-              <i className="fas fa-home"></i>
-            </span>
-            <span className="item">Profile</span>
-          </a>
+        <div className="closebtn" onClick={() => setLeftNavigation(false)}>
+          &times;
         </div>
-        <div className="List">
-          <a href="">
-            <span className="icon">
-              <i className="fas fa-home"></i>
-            </span>
-            <span className="item">User</span>
-          </a>
-        </div>
+        <a href="">Home</a>
+        <a href="">Profile</a>
+        <a href="" className="active">Users List</a>
+        <a href="">Settings</a>
       </div>
     </div>
   );
