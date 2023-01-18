@@ -1,4 +1,4 @@
-import { APPLY_LEAVE, FAILED_APPLIED_LEAVE } from "../../ActionTypes/index";
+import { APPLY_LEAVE } from "../../ActionTypes/index";
 
 const initialstate = {
     

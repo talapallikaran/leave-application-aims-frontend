@@ -4,7 +4,6 @@ import LeaveDateBox from "../LeaveDateBox/LeaveDateBox";
 import { getInitials } from "../../Helpers/misc";
 import { useDispatch, useSelector } from "react-redux";
 import { Getuser } from "../../Store/Action/GetUserAction";
-import Header from "../Header/Header";
 
 export default function EmployeeCard() {
   const dispatch = useDispatch();
@@ -21,11 +20,10 @@ export default function EmployeeCard() {
 
   useEffect(() => {
     dispatch(Getuser(Login_data?.accessToken));
-  }, [Login_data?.accessToken]);
+  }, [Login_data?.accessToken, dispatch]);
 
   return (
     <div>
-      <Header token={Login_data?.accessToken} />
       <div className="Leave-Com-Wrapper">
         {UserData?.UserData?.map((userdata, id) => {
           return (

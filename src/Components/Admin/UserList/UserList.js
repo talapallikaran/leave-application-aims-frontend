@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { AdminUserList } from "../../../Store/Action/AdminUserList/index";
 import EditForm from "../EditForm/EditForm";
 import LeftnavigationBar from "../LeftnavigationBar/LeftnavigationBar";
-import Header from "../../Header/Header";
 import "./index.css";
 
 export default function UserList() {
@@ -11,7 +10,6 @@ export default function UserList() {
   const [editmodel, setEditmodel] = useState(false);
   const [addusermodel, setAddUsermodel] = useState(false);
   const [leftnavigation, setLeftNavigation] = useState(false);
-  console.log("addusermodel======>", addusermodel);
   const successLoginData = useSelector((state) => state?.UserLoginReducer);
   const UserList = useSelector((state) => state?.AdminUserListReducer);
   if (successLoginData?.LoginData?.accessToken) {
@@ -27,10 +25,13 @@ export default function UserList() {
 
   return (
     <>
-      <Header token={Login_data?.accessToken} />
-      <div style={{ display: "flex", flex: 1 }}>
+      <div style={{ display: "flex" }}>
         {" "}
-        {leftnavigation ? <LeftnavigationBar setLeftNavigation={setLeftNavigation}/> : ""}
+        {leftnavigation ? (
+          <LeftnavigationBar setLeftNavigation={setLeftNavigation} />
+        ) : (
+          ""
+        )}
         <div className="wrapper">
           {editmodel || addusermodel ? (
             <EditForm
@@ -45,44 +46,61 @@ export default function UserList() {
             ""
           )}
           <div>
-            <p onClick={() => setLeftNavigation(true)}>&#9776; {""} Users Details</p>
-          </div>
-          <div
-            className="AddBtn"
-            style={{ display: "flex", justifyContent: "end" }}
-          >
-            <button onClick={() => setAddUsermodel(true)}>Add user</button>
+            <p
+              style={{
+                fontSize: "30px",
+                marginLeft: 30,
+                cursor: "pointer",
+                color: "var(--dark)",
+              }}
+              onClick={() => setLeftNavigation(true)}
+            >
+              {" "}
+              &#9776; {""}
+            </p>
           </div>
           <div className="usertable">
+            <div className="Table-header">
+              <div>
+                <p>Users Details</p>
+              </div>
+              <div className="AddBtn">
+                <button onClick={() => setAddUsermodel(true)}>Add user</button>
+              </div>
+            </div>
             <table style={{ width: "100%" }}>
-              <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>DOB</th>
-                <th>Phone</th>
-                <th>Reporting Person</th>
-                <th>Edit</th>
-              </tr>
-              {UserList?.AdminUserList.map((udata, id) => (
-                <tr key={id}>
-                  <td>{udata.name}</td>
-                  <td>{udata.email}</td>
-                  <td>{udata.dob}</td>
-                  <td>{udata.phone}</td>
-                  <td>
-                    {udata.reporting_person_name
-                      ? udata.reporting_person_name
-                      : "N/A"}
-                  </td>
-                  <td>
-                    <button
-                      className="editbtn"
-                      onClick={() => setEditmodel(udata)}
-                    >
-                      Edit
-                    </button>
-                  </td>
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>DOB</th>
+                  <th>Phone</th>
+                  <th>Reporting Person</th>
+                  <th>Edit</th>
                 </tr>
+              </thead>
+              {UserList?.AdminUserList.map((udata, id) => (
+                <tbody>
+                  <tr key={id}>
+                    <td data-label="Username">{udata.name}</td>
+                    <td data-label="Email">{udata.email}</td>
+                    <td data-label="DOB">{udata.dob}</td>
+                    <td data-label="Phone">{udata.phone}</td>
+                    <td data-label="Reporting Person">
+                      {udata.reporting_person_name
+                        ? udata.reporting_person_name
+                        : "N/A"}
+                    </td>
+                    <td data-label="Edit">
+                      <button
+                        className="editbtn"
+                        onClick={() => setEditmodel(udata)}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
               ))}
             </table>
           </div>

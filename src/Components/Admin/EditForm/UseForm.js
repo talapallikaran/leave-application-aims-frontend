@@ -22,9 +22,10 @@ const UseForm = (userdata, token, setEditmodel, editmodel, setAddUsermodel) => {
     const data = values;
     dispatch(UpdateUserList(data, token));
     setEditmodel(false);
-    window.location.reload();
+    // window.location.reload();
   };
 
+ 
   const handleAdd = () => {
     const formdata = values;
     console.log("adduser");

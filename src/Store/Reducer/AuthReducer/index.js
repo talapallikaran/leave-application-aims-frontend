@@ -1,7 +1,7 @@
-import { AUTH, AUTHFAILED } from "../../ActionTypes/index";
+import { AUTH, AUTHFAILED, RESET_PASSWORD } from "../../ActionTypes/index";
 const initialstate = {
   LoginData: [],
-  FailedLoginData:[]
+  FailedLoginData: [],
 };
 
 const UserLoginReducer = (state = initialstate, action) => {
@@ -9,13 +9,18 @@ const UserLoginReducer = (state = initialstate, action) => {
     case AUTH:
       return {
         ...state,
-        LoginData:action.payload.data,
+        LoginData: action.payload.data,
       };
-      case AUTHFAILED:
-        return{
-          ...state,
-          FailedLoginData:action.payload.data
-        }
+    case AUTHFAILED:
+      return {
+        ...state,
+        FailedLoginData: action.payload.data,
+      };
+    case RESET_PASSWORD:
+      return {
+        ...state,
+        ...action.payload,
+      };
 
     default:
       return state;

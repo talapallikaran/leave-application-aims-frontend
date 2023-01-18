@@ -1,4 +1,4 @@
-import {UPDATE_LEAVE_STATUS,FAILED_UPDATE_LEAVE_STATUS} from '../../ActionTypes/index'
+import {UPDATE_LEAVE_STATUS} from '../../ActionTypes/index'
 
 const initialstate = {
 };

@@ -1,12 +1,12 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import { userLogin } from "../../Store/Action/AuthAction/index";
+import { ToastContainer } from "react-toastify";
+import { userLogin } from "../../../Store/Action/AuthAction/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { Sucessnotify, Failednotify } from "../../Helpers/Toasthelper";
-import Header from "../Header/Header";
+import { Sucessnotify, Failednotify } from "../../../Helpers/Toasthelper";
 import "react-toastify/dist/ReactToastify.css";
-import "./Login.css";
+import "./index.css";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -22,38 +22,53 @@ export default function Login() {
     dispatch(userLogin(LoginInfo));
   };
 
+  const handleForgotpass = () => {
+    navigate("/forgotpass");
+  };
+
   useEffect(() => {
     if (
       email === successLoginData?.LoginData?.email &&
-      successLoginData?.LoginData?.statusCode == 200 &&
-      successLoginData?.LoginData?.role_id == 2
+      successLoginData?.LoginData?.statusCode === "200" &&
+      successLoginData?.LoginData?.role_id === 2
     ) {
       Sucessnotify();
       setTimeout(() => {
         navigate("/leaveapplication");
       }, 3000);
+      if (successLoginData?.LoginData?.accessToken) {
+        localStorage.setItem(
+          "LoginData",
+          JSON.stringify(successLoginData?.LoginData)
+        );
+      }
     }
     if (
       email === successLoginData?.LoginData?.email &&
-      successLoginData?.LoginData?.statusCode == 200 &&
+      successLoginData?.LoginData?.statusCode === "200" &&
       successLoginData?.LoginData?.role_id === 1
     ) {
       Sucessnotify();
       setTimeout(() => {
         navigate("/adminpage");
       }, 3000);
+      if (successLoginData?.LoginData?.accessToken) {
+        localStorage.setItem(
+          "LoginData",
+          JSON.stringify(successLoginData?.LoginData)
+        );
+      }
     }
-    if (successLoginData?.FailedLoginData?.statusCode == 401) {
+    if (successLoginData?.FailedLoginData?.statusCode === "401") {
       Failednotify();
       setTimeout(() => {
         window.location.reload();
       }, 3000);
     }
-  }, [email, successLoginData]);
+  }, [email, navigate, successLoginData]);
 
   return (
     <div>
-      <Header />
       <div className="logingpage">
         <p className="login-text">Login</p>
         <div className="loginform">
@@ -77,7 +92,15 @@ export default function Login() {
             <label htmlFor="">
               <h6>Password:</h6>{" "}
             </label>
-            <a href="" style={{ color: "#574CA3", fontWeight: "bold" }}>
+            <a
+              style={{
+                color: "#574CA3",
+                fontWeight: "bold",
+                textDecoration: "underline",
+                cursor: "pointer",
+              }}
+              onClick={handleForgotpass}
+            >
               Forgot Password?
             </a>
           </div>

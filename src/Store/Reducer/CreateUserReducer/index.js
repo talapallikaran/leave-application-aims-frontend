@@ -1,4 +1,4 @@
-import { CREATE_USER, FAILED_CREATE_USER_API } from "../../ActionTypes/index";
+import { CREATE_USER } from "../../ActionTypes/index";
 
 const initialstate = {};
 const CreateUserReducer = (state = initialstate, action) => {

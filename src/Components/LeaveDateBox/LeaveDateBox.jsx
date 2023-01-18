@@ -49,6 +49,7 @@ export default function LeaveDateBox(props) {
                 window.scroll(0, 0);
               }
             }
+            return null;
           });
         }
       } else if (rejected?.dates?.includes(convert(startDate))) {
@@ -66,6 +67,7 @@ export default function LeaveDateBox(props) {
                 window.scroll(0, 0);
               }
             }
+            return null;
           });
         }
       } else if (reportingperson?.dates?.includes(convert(startDate))) {
@@ -83,6 +85,7 @@ export default function LeaveDateBox(props) {
                 window.scroll(0, 0);
               }
             }
+            return null;
           });
         }
       } else if (activeLeaves?.dates?.includes(convert(startDate))) {
@@ -100,6 +103,7 @@ export default function LeaveDateBox(props) {
                 window.scroll(0, 0);
               }
             }
+            return null;
           });
         }
       } else if (startDate && endDate) {
@@ -108,8 +112,20 @@ export default function LeaveDateBox(props) {
         window.scroll(0, 0);
       }
     }
-  }, [startDate, endDate]);
+  }, [
+    startDate,
+    endDate,
+    approvedLeave?.dates,
+    approvedLeave.ApprovedLeaveIdWise,
+    rejected?.dates,
+    rejected.RejectedleaveIdWise,
+    reportingperson?.dates,
+    reportingperson.ReportingIdWiseLeave,
+    activeLeaves?.dates,
+    activeLeaves.ActiveLeaveIdWise,
+  ]);
 
+  // eslint-disable-next-line no-extend-native
   Array.prototype.getUnique = function () {
     var o = {},
       a = [];
@@ -136,6 +152,7 @@ export default function LeaveDateBox(props) {
             user_id: userdata.id,
           });
         }
+        return null;
       });
       const status1 = dates.filter((Fdata) => Fdata.status === 1);
       const status2 = dates.filter((Fdata) => Fdata.status === 2);
@@ -190,7 +207,7 @@ export default function LeaveDateBox(props) {
         });
       }
     }
-  }, [userdata]);
+  }, [Login_user_id, userdata]);
 
   return (
     <div className="Date-picker">

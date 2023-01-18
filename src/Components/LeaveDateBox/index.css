@@ -3,9 +3,16 @@
 }
 .Date-picker .react-datepicker__month {
   display: flex;
+  display: flex;
+  flex-wrap: wrap;
+  width: 921px;
 }
 .Date-picker .react-datepicker__day-names {
   display: none;
+}
+.react-datepicker__day-names,
+.react-datepicker__week {
+  white-space: nowrap;
 }
 
 .isLeaveApplied {
@@ -22,4 +29,18 @@
 .Blue {
   background-color: rgb(29, 29, 228);
   color: white !important;
+}
+.react-datepicker__input-container {
+  width: inherit;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+@media only screen and (max-width: 1060px) {
+  .Date-picker .react-datepicker__month {
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+  }
 }

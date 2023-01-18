@@ -21,7 +21,6 @@ export default function LeaveForm(props) {
     token,
     Login_user_id,
   } = props;
-  console.log("login userid", reporting_person, Login_user_id);
   const dispatch = useDispatch();
   const [leavereason, setLeaveReason] = useState(null);
   const [error, setError] = useState(null);
@@ -43,7 +42,6 @@ export default function LeaveForm(props) {
   };
 
   const HandleCancelLeave = () => {
-    console.log("cancelLeave");
     dispatch(CancelLeave(leave_id, token));
     window.location.reload();
   };
@@ -76,13 +74,11 @@ export default function LeaveForm(props) {
       reporting_person: reporting_person,
       status: 2,
     };
-    console.log("approved", Approvedleave);
     dispatch(UpdateLeaveStatus(Approvedleave, token));
     window.location.reload();
   };
   const CloseButton = () => {
     setModel(false);
-    window.location.reload();
   };
   const RejectedLeave = () => {
     const Rejectedleave = {
@@ -144,14 +140,14 @@ export default function LeaveForm(props) {
             <div className="actionsContainer">
               {Model === "user" || Model === "reportingperson" ? (
                 <>
-                  {userID == Login_user_id ||
-                  Login_user_id == reporting_person ? (
+                  {userID === Login_user_id ||
+                  Login_user_id === reporting_person ? (
                     <>
                       {" "}
                       <button
                         className="Submitbtn"
                         onClick={
-                          Model == "reportingperson"
+                          Model === "reportingperson"
                             ? handleApproved
                             : handleApply
                         }
@@ -161,7 +157,7 @@ export default function LeaveForm(props) {
                       <button
                         className="rejectedbtn"
                         onClick={
-                          Model == "reportingperson"
+                          Model === "reportingperson"
                             ? RejectedLeave
                             : () => setModel(false)
                         }
@@ -177,8 +173,8 @@ export default function LeaveForm(props) {
                 </>
               ) : (
                 <>
-                  {userID == Login_user_id ||
-                  Login_user_id == reporting_person ? (
+                  {userID === Login_user_id ||
+                  Login_user_id === reporting_person ? (
                     <>
                       <button
                         className="cancelBtn"

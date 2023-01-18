@@ -22,7 +22,7 @@ export default function LeaveCalendar() {
 
   return (
     <div>
-      <EmployeeCard />
+      <EmployeeCard />  
     </div>
   );
 }

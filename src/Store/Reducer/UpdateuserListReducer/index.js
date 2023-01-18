@@ -1,4 +1,4 @@
-import { UPDATE_USER_LIST, FAILED_USER_LIST } from "../../ActionTypes/index";
+import { UPDATE_USER_LIST } from "../../ActionTypes/index";
 
 const initialstate = {};
 

@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Header.css";
-import { LogOut, LeaveUserIcon } from "../../Images/Index";
+import { LogOut, LeaveUserIcon, UserIcon } from "../../Images/Index";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
+export default function Header() {
+  let Login_data = JSON.parse(localStorage.getItem("LoginData") || null);
+  const successLoginData = useSelector((state) => state?.UserLoginReducer);
 
-export default function Header(props) {
-  const { token } = props;
+  let token = Login_data?.accessToken;
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    token = Login_data?.accessToken;
+  }, [successLoginData]);
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -23,7 +32,7 @@ export default function Header(props) {
         {token ? (
           <div className="User-logout">
             <div className="User-img">
-              <img src={LeaveUserIcon} alt="UserIcon" width={33} height={30} />
+              <img src={UserIcon} alt="UserIcon" width={33} height={30} />
             </div>
             <div className="log-out">
               <img

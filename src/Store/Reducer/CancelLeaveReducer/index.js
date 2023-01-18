@@ -1,5 +1,5 @@
 
-import { CANCEL_LEAVE,FAILED_CANCEL_LEAVE } from "../../ActionTypes";
+import { CANCEL_LEAVE} from "../../ActionTypes";
 
 const initialstate = {
   UserData: [],
