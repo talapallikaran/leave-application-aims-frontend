@@ -10,6 +10,9 @@
 .Date-picker .react-datepicker__day-names {
   display: none;
 }
+.react-datepicker__navigation--previous{
+  z-index: 1;
+}
 .react-datepicker__day-names,
 .react-datepicker__week {
   white-space: nowrap;

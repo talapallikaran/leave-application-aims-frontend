@@ -46,7 +46,7 @@ export default function UserList() {
             ""
           )}
           <div>
-            <p
+            <h6
               style={{
                 fontSize: "30px",
                 marginLeft: 30,
@@ -57,7 +57,7 @@ export default function UserList() {
             >
               {" "}
               &#9776; {""}
-            </p>
+            </h6>
           </div>
           <div className="usertable">
             <div className="Table-header">

@@ -7,7 +7,7 @@
   padding: 20px;
 }
 .FogotPasswrapper .FogotPassPopUp .input label {
-  font-weight: 700;
+  font-weight: 600;
 }
 .FogotPasswrapper .FogotPassPopUp .input input {
   padding: 8px;
@@ -21,14 +21,14 @@
   padding: 5px 20px 0px 20px;
 }
 .FogotPasswrapper .FogotPassPopUp .submitbtn button {
-  background-color: var(--primary);
-  border: 1px solid var(--primary);
+  background-color: var(--dark);
+  border: 1px solid var(--dark);
   margin-top: 20px;
   padding: 10px 20px;
   width: 100%;
   color: var(--white);
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
 }
 .FogotPasswrapper .FogotPassPopUp .submitbtn {
   padding: 5px 20px 0px 20px;
@@ -37,8 +37,8 @@
   margin: auto;
 }
 .FogotPasswrapper p {
-  font-size: 25px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 600;
   color: var(--primary);
   margin-top: 30px;
   margin-bottom: 30px;

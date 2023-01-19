@@ -25,7 +25,16 @@ export default function EditForm(props) {
     <div>
       <div className="maindiv" onClick={() => setEditmodel(false)}></div>
       <div className="form-popup">
-        <p style={{ marginBottom: 0, marginTop: 5 }}>{ModelTitle}</p>
+        <p
+          style={{
+            marginBottom: 0,
+            marginTop: 5,
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          {ModelTitle}
+        </p>
         <button
           className="closeBtn"
           onClick={() =>
@@ -36,7 +45,7 @@ export default function EditForm(props) {
         </button>
         <div className="form-inputs">
           <label htmlFor="">UserName</label>
-          <br />
+          {/* <br /> */}
           <input
             type="text"
             name="name"
@@ -53,7 +62,7 @@ export default function EditForm(props) {
             required
           />
           <label htmlFor="">Email Address</label>
-          <br />
+          {/* <br /> */}
           <input
             type="text"
             name="email"
@@ -69,7 +78,7 @@ export default function EditForm(props) {
             }
             required
           />
-          <br />
+          {/* <br /> */}
           <label htmlFor="">DOB</label>
           <br />
           <input
@@ -87,7 +96,7 @@ export default function EditForm(props) {
             required
           />
           <label htmlFor="">Phone Number</label>
-          <br />
+          {/* <br /> */}
           <input
             type="tel"
             name="phone"
@@ -103,6 +112,7 @@ export default function EditForm(props) {
             }
             required
           />
+          {/* <br /> */}
           <label htmlFor="">Reporting to</label>
           <br />
           <select
@@ -151,7 +161,7 @@ export default function EditForm(props) {
             <div className="password" style={{ display: "flex", gap: 60 }}>
               <div>
                 <label htmlFor="">Password</label>
-                <br />
+                {/* <br /> */}
                 <input
                   style={{ width: "110%" }}
                   type="password"
@@ -170,7 +180,7 @@ export default function EditForm(props) {
               </div>
               <div>
                 <label htmlFor="">Confirm password</label>
-                <br />
+                {/* <br /> */}
                 <input
                   style={{ width: "110%" }}
                   type="password"

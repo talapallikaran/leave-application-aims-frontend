@@ -12,6 +12,7 @@
   display: flex;
   margin-bottom: 0px;
   color: var(--dark);
+  align-items: center;
 }
 
 .usertable .editbtn {
